@@ -1,6 +1,6 @@
 import IBook from "../Interfaces/IBook";
 
-class Book implements IBook {
+export default class Book implements IBook {
     constructor(id: number, name: string, description: string, aviailable: boolean, author: string){
         this.id = id;
         this.name = name;

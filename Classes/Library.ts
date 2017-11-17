@@ -3,8 +3,7 @@ import IAlbum from "../Interfaces/IAlbum";
 import IBook from "../Interfaces/IBook";
 import IMovie from "../Interfaces/IMovie";
 
-
-class Library {
+export default class Library {
     constructor() {
         this.albums = [];
         this.books = [];

@@ -1,6 +1,6 @@
 import IMovie from "../Interfaces/IMovie";
 
-class Movie implements IMovie {
+export default class Movie implements IMovie {
     constructor(id: number, name: string, description: string, aviailable: boolean, director: string){
         this.id = id;
         this.name = name;
