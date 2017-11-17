@@ -1,4 +1,5 @@
 import IMovie from "../Interfaces/IMovie";
+import { ItemType } from "../ItemType";
 
 export default class Movie implements IMovie {
     constructor(id: number, name: string, description: string, aviailable: boolean, director: string){
@@ -7,6 +8,7 @@ export default class Movie implements IMovie {
         this.description = description;
         this.available = aviailable;
         this.director = director;
+        this.type = ItemType.movie;        
     }
 
     id: number;
@@ -14,4 +16,5 @@ export default class Movie implements IMovie {
     description: string;
     available: boolean;
     director: string;
+    type: ItemType;    
 }

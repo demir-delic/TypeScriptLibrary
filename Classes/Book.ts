@@ -1,4 +1,5 @@
 import IBook from "../Interfaces/IBook";
+import { ItemType } from "../ItemType";
 
 export default class Book implements IBook {
     constructor(id: number, name: string, description: string, aviailable: boolean, author: string){
@@ -7,6 +8,7 @@ export default class Book implements IBook {
         this.description = description;
         this.available = aviailable;
         this.author = author;
+        this.type = ItemType.book;        
     }
 
     id: number;
@@ -14,4 +16,5 @@ export default class Book implements IBook {
     description: string;
     available: boolean;
     author: string;
+    type: ItemType;
 }

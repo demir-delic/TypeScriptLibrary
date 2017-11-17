@@ -1,4 +1,5 @@
 import IAlbum from "../Interfaces/IAlbum";
+import { ItemType } from "../ItemType";
 
 export default class Album implements IAlbum {
     constructor(id: number, name: string, description: string, aviailable: boolean, artist: string){
@@ -7,6 +8,7 @@ export default class Album implements IAlbum {
         this.description = description;
         this.available = aviailable;
         this.artist = artist;
+        this.type = ItemType.album;
     }
 
     id: number;
@@ -14,4 +16,5 @@ export default class Album implements IAlbum {
     description: string;
     available: boolean;
     artist: string;
+    type: ItemType;
 }
