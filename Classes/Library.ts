@@ -14,47 +14,68 @@ export default class Library {
     private albums: IAlbum[];
     private books: IBook[];
     private movies: IMovie[];
-    //private library: ILibraryItem[];
 
-    addItem(item: IAlbum);
-    addItem(item: IBook);
-    addItem(item: IMovie);
-    addItem(item: ILibraryItem) {
-        
+    returnItemTypeArray(item: ILibraryItem): ILibraryItem[] {
+        if(item.type === ItemType.album) {
+           return this.albums;
+        }
+        else if(item.type === ItemType.book) {
+            return this.books;
+        }
+        else {
+            return this.movies;
+        }
     }
     
     findItemById(id: number, collection: ILibraryItem[]): ILibraryItem {
+        let foundItem;
         
-        return collection.find(item => { // why is find not a member of collection?
-            return id === item.id;
+        collection.forEach(item => {
+            if(id === item.id) {
+                foundItem = item;
+            }
         });
-    
-    }
-
-    checkout(id: number, type: ItemType): ILibraryItem {
-        let foundItem: ILibraryItem;
-
-        if(type === ItemType.album) {
-            foundItem = this.findItemById(id, this.albums)
-        }
-        else if(type === ItemType.book) {
-            foundItem = this.findItemById(id, this.books);
-        }
-        else {
-            foundItem = this.findItemById(id, this.movies);
-        }
-
-        foundItem.available = false;
+        
         return foundItem;
     }
 
-    return(item: ILibraryItem) {
-        item.id
+    addItem(item: IAlbum): void;
+    addItem(item: IBook): void;
+    addItem(item: IMovie): void;
+    addItem(item: ILibraryItem): void {
+        this.returnItemTypeArray(item).push(item);
+    }    
+    
+    checkout(item: ILibraryItem): ILibraryItem {
+        let foundItem: ILibraryItem;
+
+        foundItem = this.findItemById(item.id, this.returnItemTypeArray(item));
+
+        if(!foundItem) {
+            console.log("The requested item does not exist in the library.");
+        }
+        else {
+            foundItem.available = false;
+            return foundItem;
+        }
+    }
+
+    return(item: ILibraryItem): void {
+        this.findItemById(item.id, this.returnItemTypeArray(item));
+        item.available = true;
     }
 
     listItems() {
-        this.library.forEach(item => {
+        this.albums.forEach(album => {
+            console.log(`Album type: ${album.type} \nAlbum ID: ${album.id} \nAlbum name: ${album.name} \nAlbum description: ${album.description} \nAlbum artist: ${album.artist}\n`)
+        });
 
+        this.books.forEach(book => {
+            console.log(`Book type: ${book.type} \nBook ID: ${book.id} \nBook name: ${book.name} \nBook description: ${book.description} \nBook author: ${book.author}\n`)
+        });
+
+        this.movies.forEach(movie => {
+            console.log(`Movie type: ${movie.type} \nMovie ID: ${movie.id} \nMovie name: ${movie.name} \nMovie description: ${movie.description} \nMovie director: ${movie.director}\n`)
         });
     }
 }
