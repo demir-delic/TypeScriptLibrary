@@ -28,7 +28,7 @@ export default class Library {
     }
     
     findItemById(id: number, collection: ILibraryItem[]): ILibraryItem {
-        let foundItem;
+        let foundItem: ILibraryItem;
         
         collection.forEach(item => {
             if(id === item.id) {
@@ -44,38 +44,44 @@ export default class Library {
     addItem(item: IMovie): void;
     addItem(item: ILibraryItem): void {
         this.returnItemTypeArray(item).push(item);
+        console.log(`${item.name} has been added to the library.`);
     }    
     
     checkout(item: ILibraryItem): ILibraryItem {
-        let foundItem: ILibraryItem;
-
-        foundItem = this.findItemById(item.id, this.returnItemTypeArray(item));
+        let foundItem: ILibraryItem = this.findItemById(item.id, this.returnItemTypeArray(item));
 
         if(!foundItem) {
-            console.log("The requested item does not exist in the library.");
+            console.log(`The requested item, ${item.name}, does not exist in the library.`);
         }
         else {
             foundItem.available = false;
+            console.log(`${item.name} has been checked out.`);
             return foundItem;
         }
     }
 
     return(item: ILibraryItem): void {
-        this.findItemById(item.id, this.returnItemTypeArray(item));
-        item.available = true;
+        let libraryItem = this.findItemById(item.id, this.returnItemTypeArray(item));
+        if(!libraryItem.available) {
+            libraryItem.available = true;
+            console.log(`${item.name} has been returned to the library.`);
+        }
+        else {
+            console.log(`The item that you tried to return, ${item.name}, is already present in the library.`);
+        }
     }
 
-    listItems() {
+    listItems(): void {
         this.albums.forEach(album => {
-            console.log(`Album type: ${album.type} \nAlbum ID: ${album.id} \nAlbum name: ${album.name} \nAlbum description: ${album.description} \nAlbum artist: ${album.artist}\n`)
+            console.log(`Item type: ${album.type} \nAlbum ID: ${album.id} \nAlbum name: ${album.name} \nAlbum description: ${album.description} \nAlbum artist: ${album.artist}\n`)
         });
 
         this.books.forEach(book => {
-            console.log(`Book type: ${book.type} \nBook ID: ${book.id} \nBook name: ${book.name} \nBook description: ${book.description} \nBook author: ${book.author}\n`)
+            console.log(`Item type: ${book.type} \nBook ID: ${book.id} \nBook name: ${book.name} \nBook description: ${book.description} \nBook author: ${book.author}\n`)
         });
 
         this.movies.forEach(movie => {
-            console.log(`Movie type: ${movie.type} \nMovie ID: ${movie.id} \nMovie name: ${movie.name} \nMovie description: ${movie.description} \nMovie director: ${movie.director}\n`)
+            console.log(`Item type: ${movie.type} \nMovie ID: ${movie.id} \nMovie name: ${movie.name} \nMovie description: ${movie.description} \nMovie director: ${movie.director}\n`)
         });
     }
 }
