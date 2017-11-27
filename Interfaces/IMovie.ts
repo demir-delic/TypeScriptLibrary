@@ -1,5 +1,5 @@
 import ILibraryItem from "./ILibraryItem";
 
-export default interface Movie extends ILibraryItem {
+export default interface IMovie extends ILibraryItem {
     director: string;
 }

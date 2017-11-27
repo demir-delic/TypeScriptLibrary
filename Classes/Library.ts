@@ -16,24 +16,16 @@ export default class Library {
     private movies: IMovie[];
 
     returnItemTypeArray(item: ILibraryItem): ILibraryItem[] {
-        if(item.type === ItemType.album) {
-           return this.albums;
-        }
-        else if(item.type === ItemType.book) {
-            return this.books;
-        }
-        else {
-            return this.movies;
-        }
+        if(item.type === ItemType.album) { return this.albums; }
+        else if(item.type === ItemType.book) { return this.books; }
+        else { return this.movies; }
     }
     
     findItemById(id: number, collection: ILibraryItem[]): ILibraryItem {
         let foundItem: ILibraryItem;
         
         collection.forEach(item => {
-            if(id === item.id) {
-                foundItem = item;
-            }
+            if(id === item.id) { foundItem = item; }
         });
         
         return foundItem;
@@ -71,17 +63,19 @@ export default class Library {
         }
     }
 
+    list(itemArray: ILibraryItem[]): void {
+        itemArray.forEach(item => {
+            console.log(`Type: ${item.type} \nID: ${item.id} \nName: ${item.name} \nDescription: ${item.description}`);
+            
+            if(item.type === ItemType.album) { console.log(`Artist: ${item["artist"]}\n`); }
+            else if(item.type === ItemType.book) { console.log(`Author: ${item["author"]}\n`); }
+            else { console.log(`Director: ${item["director"]}\n`); }
+        });
+    }
+
     listItems(): void {
-        this.albums.forEach(album => {
-            console.log(`Item type: ${album.type} \nAlbum ID: ${album.id} \nAlbum name: ${album.name} \nAlbum description: ${album.description} \nAlbum artist: ${album.artist}\n`)
-        });
-
-        this.books.forEach(book => {
-            console.log(`Item type: ${book.type} \nBook ID: ${book.id} \nBook name: ${book.name} \nBook description: ${book.description} \nBook author: ${book.author}\n`)
-        });
-
-        this.movies.forEach(movie => {
-            console.log(`Item type: ${movie.type} \nMovie ID: ${movie.id} \nMovie name: ${movie.name} \nMovie description: ${movie.description} \nMovie director: ${movie.director}\n`)
-        });
+        this.list(this.albums);
+        this.list(this.books);
+        this.list(this.movies);
     }
 }
